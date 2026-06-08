@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Orders</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<header>
+  <h2>📦 My Orders</h2>
+  <div>
+    <a href="/">Home</a>
+    <a href="/profile">Profile</a>
+  </div>
+</header>
+
+<div class="cart-container">
+
+  {% if orders|length == 0 %}
+    <h3 style="text-align:center;">No orders yet 😔</h3>
+  {% else %}
+
+    {% for o in orders %}
+      <div class="card">
+        <p><b>{{ o[0] }}</b></p>
+        <p>Price: ₹{{ o[1] }}</p>
+      </div>
+    {% endfor %}
+
+  {% endif %}
+
+</div>
+
+</body>
+</html>

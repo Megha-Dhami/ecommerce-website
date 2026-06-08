@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<header>
+  <h2>👤 Profile</h2>
+  <div>
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+  </div>
+</header>
+
+<div class="cart-container" style="text-align:center;">
+
+  <h2>Welcome {{ user }}</h2>
+
+  <p><b>Total Orders:</b> {{ total_orders }}</p>
+  <p><b>Cart Items:</b> {{ cart_items }}</p>
+  <p><b>Wishlist Items:</b> {{ wishlist_items }}</p>
+
+  <br>
+
+  <a href="/orders"><button>View Orders 📦</button></a>
+  <a href="/cart"><button>Go to Cart 🛒</button></a>
+  <a href="/wishlist"><button>Wishlist ❤️</button></a>
+
+</div>
+
+</body>
+</html>

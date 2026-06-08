@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Frosty Delights 🍦</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+  <h2>🍦 Frosty Delights</h2>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/cart">Cart 🛒</a>
+    <a href="/profile">Profile 👤</a>
+    <a href="/orders">Orders 📦</a>
+    <a href="/wishlist">❤️ Wishlist (<span id="wishCount">0</span>)</a>
+    <a href="/logout">Logout 🚪</a>
+  </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-content">
+  <h1>Delicious Ice Creams 🍨</h1>
+  <p>Fresh, creamy & made with love</p>
+</div>
+</section>
+
+<!-- PRODUCTS -->
+<div class="grid" id="products"></div>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='script.js') }}?v=999"></script>
+<script>
+  displayProducts("products");
+</script>
+<script>
+displayProducts("products");
+showRecommendations();
+updateWishlistCount(); 
+</script>
+</body>
+</html>

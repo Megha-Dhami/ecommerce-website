@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Payment</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <style>
+    .payment-box{
+      width: 400px;
+      margin: 50px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      text-align:center;
+    }
+
+    .payment-box input, .payment-box select{
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    #totalAmount{
+      color: #ff4d6d;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .processing{
+      display:none;
+      font-size: 18px;
+      color: green;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body onload="changeMethod(); showTotal();">
+
+<h2 style="text-align:center;">💳 Secure Payment</h2>
+
+<!-- TOTAL -->
+<h3 style="text-align:center;">
+  Total Amount: ₹<span id="totalAmount">0</span>
+</h3>
+
+<div class="payment-box">
+
+  <!-- PAYMENT METHOD -->
+  <select id="method" onchange="changeMethod()">
+    <option value="card">💳 Card</option>
+    <option value="upi">📱 UPI</option>
+  </select>
+
+  <!-- CARD -->
+  <div id="cardBox">
+    <input id="card" placeholder="Card Number">
+    <input placeholder="Expiry (MM/YY)">
+    <input placeholder="CVV">
+  </div>
+
+  <!-- UPI -->
+  <div id="upiBox" style="display:none;">
+    <input id="upi" placeholder="Enter UPI ID (example@upi)">
+  </div>
+
+  <button onclick="payNow()">Pay Now</button>
+
+  <div class="processing" id="status">Processing payment...</div>
+
+</div>
+
+<!-- MAIN JS -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<script>
+
+// 
+// SWITCH METHOD
+// 
+function changeMethod(){
+  let m = document.getElementById("method").value;
+
+  document.getElementById("cardBox").style.display = m==="card" ? "block" : "none";
+  document.getElementById("upiBox").style.display = m==="upi" ? "block" : "none";
+}
+
+
+// 
+// 💰 SHOW TOTAL (FROM DB)
+// 
+function showTotal(){
+  fetch("/get_cart")
+  .then(res => res.json())
+  .then(cart => {
+
+    let total = 0;
+
+    cart.forEach(item => {
+      total += item[2]; // price from DB
+    });
+
+    document.getElementById("totalAmount").innerText = total;
+  });
+}
+
+
+// 
+// 💳 PAYMENT LOGIC
+// 
+function payNow(){
+
+  let method = document.getElementById("method").value;
+
+  // CARD VALIDATION
+  if(method === "card"){
+    let card = document.getElementById("card").value;
+
+    if(card.length < 12){
+      alert("Invalid Card ❌");
+      return;
+    }
+  }
+
+  // UPI VALIDATION
+  if(method === "upi"){
+    let upi = document.getElementById("upi").value;
+
+    if(!upi.includes("@")){
+      alert("Invalid UPI ❌");
+      return;
+    }
+  }
+
+  let status = document.getElementById("status");
+  status.style.display = "block";
+
+  setTimeout(()=>{
+
+    status.innerText = "Payment Successful ✅";
+
+    // PLACE ORDER AFTER PAYMENT
+    placeOrder();
+
+  }, 2000);
+}
+
+</script>
+
+</body>
+</html>
