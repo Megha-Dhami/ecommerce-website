@@ -74,6 +74,26 @@ http://127.0.0.1:5000
 * Online Deployment
 * Better Security Features
 
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/homepage.png)
+
+### Login Page
+![Login Page](screenshots/loginpage.png)
+
+### Cart Page
+![Cart Page](screenshots/cartpage.png)
+
+### Orders Page
+![Orders Page](screenshots/orders-page.png)
+
+### Profile Page
+![Profile Page](screenshots/profilepage.png)
+
+### Wishlist Page
+![Wishlist Page](screenshots/wishlist-page.png)
+
 ## Author
 
 Megha Dhami
